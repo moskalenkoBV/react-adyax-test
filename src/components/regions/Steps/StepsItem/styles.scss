@@ -1,0 +1,11 @@
+.steps-item {
+  font-size: 18px;
+  padding: 10px 25px;
+  border: 1px solid $color-gray;
+  background-color: transparent;
+  outline: 0;
+
+  &--active {
+    background-color: $color-yellow;
+  }
+}
