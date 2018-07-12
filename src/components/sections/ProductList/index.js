@@ -1,78 +1,41 @@
 import React from 'react'
 import Product from '../../components/Product'
+import { connect } from 'react-redux'
+import incQuantity from '../../../actions/incQuantity'
+import decQuantity from '../../../actions/decQuantity'
+import changeActiveProduct from '../../../actions/changeActiveProduct'
 
-class ProductList extends React.Component {
-  state = {
-    items: [
+const ProductList = ({ products, incQuantity, decQuantity, changeActiveProduct }) => (
+  <section className="product-list">
+    <h2>Product list</h2>
+    <div className="product-list__items">
       {
-        id: 0,
-        name: 'Product 1',
-        description: 'Lorem ipsum dolor sit amet, quis dictum mauris erat aliquam, ac in pede pharetra quis non et.',
-        min: 1,
-        max: 9,
-        price: 75,
-        currentQuantity: 2
-      },
-      {
-        id: 1,
-        name: 'Product 2',
-        description: 'Lorem ipsum dolor sit amet, quis dictum mauris erat aliquam, ac in pede pharetra quis non et.',
-        min: 1,
-        max: 7,
-        price: 20,
-        currentQuantity: 2
-      },
-      {
-        id: 2,
-        name: 'Product 3',
-        description: 'Lorem ipsum dolor sit amet, quis dictum mauris erat aliquam, ac in pede pharetra quis non et.',
-        min: 1,
-        max: 4,
-        price: 15,
-        currentQuantity: 2
+        products.length > 0 && (
+          products.map((item, index) => (
+            <Product
+              key={index}
+              itemId={item.id}
+              title={item.title}
+              description={item.description}
+              min={item.min}
+              max={item.max}
+              price={item.price}
+              quantity={item.quantity ? item.quantity : item.min}
+              incQuantity={incQuantity}
+              decQuantity={decQuantity}
+              changeState={changeActiveProduct}
+            />
+          ))
+        )
       }
-    ]
-  }
+    </div>
+  </section>
+)
 
-  incQuantity = key => {
-    const items = [...this.state.items];
-    items[key] = { ...items[key], currentQuantity: items[key].currentQuantity + 1 };
-    this.setState({ items });
-  }
+export default connect(
+  (state) => (
+    {products: state.products.items}
+  ),
+  { incQuantity, decQuantity, changeActiveProduct }
 
-  decQuantity = key => {
-    const items = [...this.state.items];
-    items[key] = { ...items[key], currentQuantity: items[key].currentQuantity - 1 };
-    this.setState({ items });
-  }
-
-  render() {
-    const { items } = this.state
-    return (
-      <section className="product-list">
-        <h2>Product list</h2>
-        <div className="product-list__items">
-          {
-            items.map((item, index) => (
-              <Product
-                key={index}
-                itemId={item.id}
-                itemKey={index}
-                name={item.name}
-                description={item.description}
-                min={item.min}
-                max={item.max}
-                price={item.price}
-                currentQuantity={item.currentQuantity}
-                incQuantity={this.incQuantity}
-                decQuantity={this.decQuantity}
-              />
-            ))
-          }
-        </div>
-      </section>
-    )
-  }
-}
-
-export default ProductList
+)(ProductList)

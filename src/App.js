@@ -2,9 +2,16 @@ import React, { Component } from 'react'
 import Header from './components/regions/Header'
 import Steps from './components/regions/Steps'
 import Content from './components/regions/Content'
+import { setProducts } from './actions/setProducts'
+import { connect } from 'react-redux'
 import './main.scss';
 
 class App extends Component {
+
+  componentDidMount() {
+    this.props.setProducts();
+  }
+
   render() {
     return (
       <div className="app">
@@ -22,4 +29,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default connect(null, { setProducts })(App)
