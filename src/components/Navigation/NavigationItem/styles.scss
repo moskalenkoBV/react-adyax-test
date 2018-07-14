@@ -1,9 +1,8 @@
-.steps-item {
-  font-size: 18px;
-  padding: 10px 25px;
+.navigation-item {
   border: 1px solid $color-gray;
   background-color: transparent;
-  outline: 0;
+  padding: 6px 25px;
+  font-size: 18px;
 
   &--active {
     background-color: $color-yellow;

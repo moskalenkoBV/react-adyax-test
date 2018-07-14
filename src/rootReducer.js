@@ -1,7 +1,8 @@
-import {combineReducers} from 'redux'
-
-import products from './reducers/products'
+import { combineReducers } from 'redux'
+import { i18nReducer } from 'react-redux-i18n'
+import stepsReducer from './reducers/stepsReducer'
 
 export default combineReducers({
-	products
+  i18n: i18nReducer,
+  stepsReducer
 })
