@@ -3,18 +3,30 @@ import PropTypes from 'prop-types'
 import { I18n, Translate } from 'react-redux-i18n'
 import Select from 'react-select'
 import AmountControl from '../../AmountControl'
+import CustomCheckbox from '../../Forms/FormElements/CustomCheckbox'
+import ProductPrice from '../../ProductPrice'
 
 class ProductsItem extends React.Component {
   state = {
     selectedBonus: ''
   }
 
-  changeBonus = selectedBonus => {
+  changeBonus = (selectedBonus) => {
+    const bonusValue = selectedBonus === null ? null : selectedBonus.value
     this.setState({ selectedBonus });
+    this.props.changeBonus(this.props.id, bonusValue)
   }
 
+  incAmount = () => (
+    this.props.incAmount(this.props.id)
+  )
+
+  decAmount = () => (
+    this.props.decAmount(this.props.id)
+  )
+
   render() {
-    const { id, title, description, price, min, max, amount, inBasket, bonus } = this.props
+    const { id, title, description, price, min, max, amount, inBasket, bonus, incAmount, decAmount, changeBonus } = this.props
     const { selectedBonus } = this.state
 
     return (
@@ -33,11 +45,25 @@ class ProductsItem extends React.Component {
           />
         </div>
         <div className="products-item__control">
-          <div>
-            <label></label>
-            <input type="checkbox" />
+          <div className="products-item__checkbox">
+            <CustomCheckbox />
           </div>
-          <AmountControl />
+          <div className="products-item__amount">
+            <AmountControl 
+              amount={amount} 
+              min={min} 
+              max={max} 
+              incHandle={this.incAmount} 
+              decHandle={this.decAmount}
+            />
+          </div>
+          <div className="products-item__price">
+            <ProductPrice
+              price={price}
+              amount={amount}
+              bonus={bonus}
+            />
+          </div>
         </div>
       </article>
     )
@@ -48,10 +74,13 @@ ProductsItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   amount: PropTypes.number.isRequired,
   inBasket: PropTypes.bool.isRequired,
-  bonus: PropTypes.number.isRequired
+  bonus: PropTypes.any,
+  incAmount: PropTypes.func.isRequired,
+  decAmount: PropTypes.func.isRequired,
+  changeBonus: PropTypes.func.isRequired
 }
 
 export default ProductsItem

@@ -1,6 +1,6 @@
 import { NEXT_STEP } from '../types'
 
-const nextStep = () => (dispatch) => {
+const nextStep = () => dispatch => {
   dispatch({
     type: NEXT_STEP
   })

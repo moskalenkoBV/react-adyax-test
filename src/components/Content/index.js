@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Steps from '../Steps'
+import Basket from '../Basket'
 import { connect } from 'react-redux'
 
 const Content = ({ currentStep }) => (
@@ -9,6 +10,7 @@ const Content = ({ currentStep }) => (
       <Steps currentStep={currentStep} />
     </div>
     <div className="content__basket">
+      <Basket />
     </div>
   </div>
 )

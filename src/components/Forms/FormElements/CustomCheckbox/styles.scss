@@ -1,0 +1,58 @@
+.custom-checkbox {
+  $root: &;
+  font-size: 0;
+  line-height: 1;
+  display: block;
+  width: 48px;
+  height: 24px;
+  border: 1px solid $color-gray;
+  position: relative;
+  border-radius: 20px;
+  cursor: pointer;
+
+  &__input {
+    opacity: 0;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    cursor: pointer;
+
+    &:checked ~ #{$root}__checkmark {
+      background-color: $color-yellow;
+      left: auto;
+      right: 2px;
+    }
+
+    &:focus ~ #{$root}__outline {
+      @include outline();
+    }
+  }
+
+  &__checkmark {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: $color-gray;
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &__outline {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    pointer-events: none;
+  }
+}

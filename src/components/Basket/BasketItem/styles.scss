@@ -1,0 +1,16 @@
+.basket-item {
+  table {
+    width: 100%;
+  }
+
+  td {
+    &:last-child {
+      text-align: right;
+      font-weight: 700;
+    }
+  }
+
+  &__price {
+    font-size: 15px;
+  }
+}

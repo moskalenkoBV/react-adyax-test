@@ -11,22 +11,25 @@ const dictionary = {
     basket: {
       title: 'Basket'
     },
+    errors: {
+      '503': 'Service is temporarily unavailable'
+    },
     bonuses: {
       placeholder: 'Select bonus...',
       removeBonusText: 'Remove bonus',
       noResultsText: 'No results found',
       items: [
         {
-          value: '1.25',
-          label: 'Cheese'
+          value: '0.25',
+          label: 'Extra Cheese'
         },
         {
-          value: '1.5',
-          label: 'Double Cheese'
+          value: '0.5',
+          label: 'Extra Bacon'
         },
         {
-          value: '1.75',
-          label: 'Triple Cheese'
+          value: '0.75',
+          label: 'Cheese + Bacon'
         }
       ]
     }
