@@ -10,6 +10,25 @@ const dictionary = {
     ],
     basket: {
       title: 'Basket'
+    },
+    bonuses: {
+      placeholder: 'Select bonus...',
+      removeBonusText: 'Remove bonus',
+      noResultsText: 'No results found',
+      items: [
+        {
+          value: '1.25',
+          label: 'Cheese'
+        },
+        {
+          value: '1.5',
+          label: 'Double Cheese'
+        },
+        {
+          value: '1.75',
+          label: 'Triple Cheese'
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,22 @@
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start; 
+  width: 100%;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.05);
+  min-height: 500px;
+  padding: 44px 25px 38px;
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+
+  &__basket {
+    margin-left: 30px;
+    width: 320px;
+    flex: 0 0 auto;
+  }
+
+  &__steps {
+    flex: 1 1 auto;
+  }
+}

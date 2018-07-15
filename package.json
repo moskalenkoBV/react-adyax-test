@@ -10,6 +10,7 @@
     "react-redux": "^5.0.7",
     "react-redux-i18n": "^1.9.3",
     "react-scripts": "1.1.4",
+    "react-select": "^1.2.1",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
     "redux-thunk": "^2.3.0"
@@ -42,6 +43,7 @@
     "url-loader": "^1.0.1",
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "webpack-dev-server": "^3.1.4",
+    "webpack-merge-and-include-globally": "^2.0.11"
   }
 }

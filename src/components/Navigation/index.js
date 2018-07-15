@@ -7,17 +7,16 @@ import setStep from '../../actions/setStep'
 class Navigation extends React.Component {
 
   render() {
-    // couldn't bind setStep
     const { currentStep, steps, setStep } = this.props
 
     return (
       <div className="navigation">
         {
-          Object.keys(steps).map((item, index) => (
+          steps.map((item, index) => (
             <NavigationItem 
-              key={index}
-              text={steps[item]}
-              id={index}
+              key={index} // index won't change
+              text={item}
+              id={index} // index won't change
               currentStep={currentStep}
               setStep={setStep}
             />
@@ -30,7 +29,7 @@ class Navigation extends React.Component {
 
 Navigation.propTypes = {
   currentStep: PropTypes.number.isRequired,
-  steps: PropTypes.object.isRequired,
+  steps: PropTypes.array.isRequired,
   setStep: PropTypes.func.isRequired
 }
 

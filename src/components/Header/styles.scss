@@ -1,9 +1,9 @@
 .header {
-  .header__logo {
+  &__logo {
     text-align: center;
   }
 
-  .header__title {
+  &__title {
     margin: 17px 0 0;
     text-align: center;
   }

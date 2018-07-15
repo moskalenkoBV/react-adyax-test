@@ -6,9 +6,10 @@ import { connect } from 'react-redux'
 import dictionary from './dictionary'
 import store from './store'
 import initSteps from './actions/initSteps'
-import nextStep from './actions/nextStep'
+import getProducts from './actions/getProducts'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
+import Content from './components/Content'
 
 class App extends React.Component {
 
@@ -16,7 +17,9 @@ class App extends React.Component {
     syncTranslationWithStore(store)
     store.dispatch(loadTranslations(dictionary))
     store.dispatch(setLocale('en'))
-    this.props.initSteps(I18n.t('steps'))
+
+    this.props.initSteps(Object.values(I18n.t('steps')))
+    this.props.getProducts()
   }
 
   render() {
@@ -29,16 +32,20 @@ class App extends React.Component {
         <div className="app__navigation">
           <Navigation />
         </div>
+        <div className="app__content">
+          <Content />
+        </div>
       </div>
     )
   }
 }
 
 App.propTypes = {
-  initSteps: PropTypes.func
+  initSteps: PropTypes.func.isRequired,
+  getProducts: PropTypes.func.isRequired
 }
 
 export default connect(
   null,
-  { initSteps }
+  { initSteps, getProducts }
 )(App)
