@@ -1,4 +1,4 @@
-import { DEL_PRODUCT } from '..types'
+import { DEL_PRODUCT } from '../types'
 
 const delProduct = id => dispatch => {
   dispatch({

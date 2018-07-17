@@ -11,10 +11,9 @@ class ProductsItem extends React.Component {
     selectedBonus: ''
   }
 
-  changeBonus = (selectedBonus) => {
-    const bonusValue = selectedBonus === null ? null : selectedBonus.value
+  changeBonus = selectedBonus => {
     this.setState({ selectedBonus });
-    this.props.changeBonus(this.props.id, bonusValue)
+    this.props.changeBonus(this.props.id, selectedBonus)
   }
 
   incAmount = () => (
@@ -25,8 +24,21 @@ class ProductsItem extends React.Component {
     this.props.decAmount(this.props.id)
   )
 
+  changeProductState = isChecked => {
+    console.log(isChecked)
+    const productData = {
+      id: this.props.id,
+      amount: this.props.amount,
+      bonus: this.props.bonus,
+      price: this.props.price,
+      title: this.props.title
+    }
+    isChecked ? this.props.addProduct(productData) : this.props.delProduct(this.props.id)
+  }
+
   render() {
-    const { id, title, description, price, min, max, amount, inBasket, bonus, incAmount, decAmount, changeBonus } = this.props
+    const { id, title, description, price, min, max, amount, inBasket, bonus } = this.props
+
     const { selectedBonus } = this.state
 
     return (
@@ -46,7 +58,7 @@ class ProductsItem extends React.Component {
         </div>
         <div className="products-item__control">
           <div className="products-item__checkbox">
-            <CustomCheckbox />
+            <CustomCheckbox onChangeHandle={this.changeProductState} />
           </div>
           <div className="products-item__amount">
             <AmountControl 
@@ -80,7 +92,9 @@ ProductsItem.propTypes = {
   bonus: PropTypes.any,
   incAmount: PropTypes.func.isRequired,
   decAmount: PropTypes.func.isRequired,
-  changeBonus: PropTypes.func.isRequired
+  changeBonus: PropTypes.func.isRequired,
+  addProduct: PropTypes.func.isRequired,
+  delProduct: PropTypes.func.isRequired
 }
 
 export default ProductsItem

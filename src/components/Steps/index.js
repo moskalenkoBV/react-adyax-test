@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Products from '../Products'
+import ContactDetails from '../ContactDetails'
 
 const stepItems = {
-  0: <Products />
+  0: <Products />,
+  1: <ContactDetails />
 }
 
 const Steps = ({ currentStep }) => (

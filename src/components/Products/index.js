@@ -6,10 +6,12 @@ import ProductsItem from './ProductsItem'
 import incAmount from '../../actions/incAmount'
 import decAmount from '../../actions/decAmount'
 import changeBonus from '../../actions/changeBonus'
+import addProduct from '../../actions/addProduct'
+import delProduct from '../../actions/delProduct'
 
-const Products = ({ products, incAmount, decAmount, changeBonus }) => (
+const Products = ({ products, incAmount, decAmount, changeBonus, addProduct, delProduct }) => (
   <section className="products">
-    <h2 className="products__title"><Translate value="steps.0" /></h2>
+    <h2 className="section-title"><Translate value="steps.0" /></h2>
     <div className="products__list">
       {
         products.map((item) => (
@@ -27,6 +29,8 @@ const Products = ({ products, incAmount, decAmount, changeBonus }) => (
               incAmount={incAmount}
               decAmount={decAmount}
               changeBonus={changeBonus}
+              addProduct={addProduct}
+              delProduct={delProduct}
             />
           </div>
         ))
@@ -39,12 +43,14 @@ Products.propTypes = {
   products: PropTypes.array,
   incAmount: PropTypes.func.isRequired,
   decAmount: PropTypes.func.isRequired,
-  changeBonus: PropTypes.func.isRequired
+  changeBonus: PropTypes.func.isRequired,
+  addProduct: PropTypes.func.isRequired,
+  delProduct: PropTypes.func.isRequired
 }
 
 export default connect(
   (state) => ({
     products: state.productsReducer.products
   }),
-  { incAmount, decAmount, changeBonus }
+  { incAmount, decAmount, changeBonus, addProduct, delProduct }
 )(Products)

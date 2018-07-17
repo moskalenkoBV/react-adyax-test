@@ -8,6 +8,5 @@ export const INIT_PRODUCTS = 'INIT_PRODUCTS'
 export const INC_AMOUNT = 'INC_AMOUNT'
 export const DEC_AMOUNT = 'DEC_AMOUNT'
 export const CHANGE_BONUS = 'CHANGE_BONUS'
-
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const DEL_PRODUCT = 'DEL_PRODUCT'

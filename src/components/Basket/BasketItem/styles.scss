@@ -4,6 +4,10 @@
   }
 
   td {
+    &:first-child {
+      padding-right: 10px
+    }
+    
     &:last-child {
       text-align: right;
       font-weight: 700;
