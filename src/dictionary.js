@@ -53,7 +53,29 @@ const dictionary = {
       emailConfirm: 'Confirm email address',
       address: 'Address',
       country: 'Country',
-      nationality: 'Nationality'
+      nationality: 'Nationality',
+      countries: [
+        {
+          label: 'UKR', value: '1'
+        },
+        {
+          label: 'RUS', value: '2'
+        },
+        {
+          label: 'GER', value: '3'
+        }
+      ],
+      nationalities: [
+        {
+          label: 'Ukrainian', value: '1'
+        },
+        {
+          label: 'Russian', value: '2'
+        },
+        {
+          label: 'British', value: '3'
+        }
+      ]
     }
   }
 }
