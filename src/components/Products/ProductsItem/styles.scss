@@ -1,0 +1,32 @@
+.products-item {
+  display: flex;
+
+  &__description {
+    margin-bottom: 20px;
+  }
+
+  &__info {
+    flex: 1 1 auto;
+    padding-right: 55px;
+  }
+
+  &__control {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__bonus {
+    width: 200px;
+    outline: none;
+  }
+
+  &__checkbox {
+    margin-bottom: 15px;
+  }
+
+  &__amount {
+    margin-bottom: 15px;
+  }
+}

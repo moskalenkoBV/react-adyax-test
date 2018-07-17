@@ -1,0 +1,23 @@
+.basket {
+  &__wrapper {
+    padding: 0 20px 30px;
+    box-shadow: -1px 1px 3px 1px rgba(0, 0, 0, 0.13);
+  }
+
+  &__item {
+    padding: 20px 0;
+    border-bottom: 1px solid $color-gray;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__next-step {
+    margin-top: 25px;
+  }
+
+  &__empty-message {
+    padding-top: 30px;
+  }
+}

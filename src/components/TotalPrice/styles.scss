@@ -1,0 +1,17 @@
+.total-price {
+  width: 100%;
+
+  td {
+    font-size: 20px;
+    line-height: 1;
+
+    &:first-child {
+      padding-right: 10px;
+    }
+
+    &:last-child {
+      font-weight: 700;
+      text-align: right;
+    }
+  }
+}

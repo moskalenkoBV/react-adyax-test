@@ -1,0 +1,61 @@
+const dictionary = {
+  en: {
+    application: {
+      title: 'React/redux application'
+    },
+    steps: [
+      'Product list',
+      'Contact details',
+      'Confirmation'
+    ],
+    basket: {
+      title: 'Basket',
+      amount: 'Amount',
+      price: 'Price',
+      bonus: 'Selected bonus',
+      totalPrice: 'Total price',
+      emptyMessage: 'You are hungry, but your basket is empty.'
+    },
+    errors: {
+      '503': 'Service is temporarily unavailable',
+      firstName: 'Please enter your first name',
+      lastName: 'Please enter your last name',
+      email: 'Email Address is not correct',
+      emailConfirm: 'Actual E-mail does not match',
+      address: 'Address field is required'
+    },
+    buttons: {
+      nextStep: 'Next step' 
+    },
+    bonuses: {
+      placeholder: 'Select bonus...',
+      removeBonusText: 'Remove bonus',
+      noResultsText: 'No results found',
+      items: [
+        {
+          value: '0.25',
+          label: 'Extra Cheese'
+        },
+        {
+          value: '0.5',
+          label: 'Extra Bacon'
+        },
+        {
+          value: '0.75',
+          label: 'Cheese + Bacon'
+        }
+      ]
+    },
+    contactForm: {
+      firstName: 'First name',
+      lastName: 'Last name',
+      email: 'Email address',
+      emailConfirm: 'Confirm email address',
+      address: 'Address',
+      country: 'Country',
+      nationality: 'Nationality'
+    }
+  }
+}
+
+export default dictionary

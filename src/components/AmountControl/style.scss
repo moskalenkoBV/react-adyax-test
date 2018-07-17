@@ -1,0 +1,57 @@
+.amount-control {
+  display: inline-flex;
+  align-items: center;
+
+  &__current-amount {
+    font-size: 19px;
+    line-height: 1;
+    padding: 0 10px;
+    pointer-events: none;
+  }
+
+  &__button {
+    -webkit-appearance: none;
+    padding: 0;
+    width: 26px;
+    height: 26px;
+    border: 1px solid $color-gray;
+    background-color: transparent;
+    outline: none;
+    border-radius: 50%;
+    position: relative;
+
+    &:before,
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background-color: #000;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 2px;
+    }
+
+    &--inc {
+      &:after {
+        width: 2px;
+        height: 10px;
+      }
+    }
+
+    &--dec {
+      &:after {
+        display: none;
+      }
+
+      &:before {
+        width: 6px;
+      }
+    }
+
+    &:focus {
+      @include outline();
+    }
+  }
+}

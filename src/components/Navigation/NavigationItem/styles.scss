@@ -1,0 +1,15 @@
+.navigation-item {
+  border: 1px solid $color-gray;
+  background-color: transparent;
+  padding: 6px 25px;
+  font-size: 18px;
+  outline: none;
+
+  &--active {
+    background-color: $color-yellow;
+  }
+
+  &:focus {
+    @include outline();
+  }
+}
