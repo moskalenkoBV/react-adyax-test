@@ -13,6 +13,7 @@ import Header from './components/Header'
 import Navigation from './components/Navigation'
 import Content from './components/Content'
 import Message from './components/Message'
+import Loader from './components/Loader'
 
 class App extends React.Component {
 
@@ -33,7 +34,6 @@ class App extends React.Component {
       this.props.initProducts(productsData)
       this.setState({loading: false})
     } catch(e) {
-      console.log(e.response)
       this.setState({loading: false, error: I18n.t('errors.503')})
     }
   }
@@ -43,7 +43,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        { !loading &&
+        { !loading ?
           <div>
             <div className="app__header">
               <Header />
@@ -63,6 +63,8 @@ class App extends React.Component {
               </div>
             }
           </div>
+          :
+          <Loader />
         }
       </div>
     )

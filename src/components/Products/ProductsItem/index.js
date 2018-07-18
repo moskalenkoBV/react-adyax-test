@@ -25,7 +25,6 @@ class ProductsItem extends React.Component {
   )
 
   changeProductState = isChecked => {
-    console.log(isChecked)
     const productData = {
       id: this.props.id,
       amount: this.props.amount,
@@ -58,7 +57,7 @@ class ProductsItem extends React.Component {
         </div>
         <div className="products-item__control">
           <div className="products-item__checkbox">
-            <CustomCheckbox onChangeHandle={this.changeProductState} />
+            <CustomCheckbox initialChecked={inBasket} onChangeHandle={this.changeProductState} />
           </div>
           <div className="products-item__amount">
             <AmountControl 

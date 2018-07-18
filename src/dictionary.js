@@ -22,7 +22,9 @@ const dictionary = {
       lastName: 'Please enter your last name',
       email: 'Email Address is not correct',
       emailConfirm: 'Actual E-mail does not match',
-      address: 'Address field is required'
+      address: 'Address field is required',
+      country: 'Country field is required',
+      nationality: 'Nationality field is required'
     },
     buttons: {
       nextStep: 'Next step' 
@@ -47,6 +49,8 @@ const dictionary = {
       ]
     },
     contactForm: {
+      mainSection: 'New account',
+      additionalSection: 'Additional address',
       firstName: 'First name',
       lastName: 'Last name',
       email: 'Email address',
