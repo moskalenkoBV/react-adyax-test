@@ -9,7 +9,7 @@ import changeBonus from '../../actions/changeBonus'
 import addProduct from '../../actions/addProduct'
 import delProduct from '../../actions/delProduct'
 
-const Products = ({ products, incAmount, decAmount, changeBonus, addProduct, delProduct }) => (
+const Products = ({ products, incAmount, decAmount, changeBonus, addProduct, delProduct, basket }) => (
   <section className="products">
     <h2 className="section-title"><Translate value="steps.0" /></h2>
     <div className="products__list">
@@ -24,13 +24,13 @@ const Products = ({ products, incAmount, decAmount, changeBonus, addProduct, del
               min={item.min}
               max={item.max}
               amount={item.amount ? item.amount : item.min}
-              inBasket={item.checked ? item.checked : false}
               bonus={item.bonus ? item.bonus : null}
               incAmount={incAmount}
               decAmount={decAmount}
               changeBonus={changeBonus}
               addProduct={addProduct}
               delProduct={delProduct}
+              inBasket={!!(basket.filter(basketItem => basketItem.id === item.id)).length}
             />
           </div>
         ))
@@ -50,7 +50,8 @@ Products.propTypes = {
 
 export default connect(
   (state) => ({
-    products: state.productsReducer.products
+    products: state.productsReducer.products,
+    basket: state.basketReducer.products
   }),
   { incAmount, decAmount, changeBonus, addProduct, delProduct }
 )(Products)
