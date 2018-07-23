@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Translate, Localize } from 'react-redux-i18n'
 import calcPriceSingle from '../../../helpers/calcPriceSingle'
 
-const BasketItem = ({ id, title, bonus, amount, price }) => (
+const BasketItem = ({ _id, title, bonus, amount, price }) => (
   <article className="basket-item">
     <h3>{title}</h3>
     <table>
@@ -33,7 +33,7 @@ const BasketItem = ({ id, title, bonus, amount, price }) => (
 )
 
 BasketItem.propTypes = {
-  id: PropTypes.string.isRequired,
+  _id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   bonus: PropTypes.any,
   amount: PropTypes.number.isRequired,

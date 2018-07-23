@@ -3,6 +3,28 @@
     display: flex;
     margin: 0 -10px 15px;
   }
+
+  &__error-message {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: red;
+    margin: 10px 0;
+    padding: 0 20px;
+    text-align: center;
+
+    &:before {
+      content: '!';
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      background-color: red;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 20px;
+      margin-right: 10px;
+    } 
+  }
 }
 
 .form-field {

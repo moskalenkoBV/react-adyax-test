@@ -2,4 +2,13 @@
   &__section-title {
     margin-top: 20px;
   }
+
+  &__additional {
+    margin-top: 30px;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
 }

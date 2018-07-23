@@ -10,7 +10,8 @@ const CustomCheckbox = ({ onChangeHandle, initialChecked }) => (
 )
 
 CustomCheckbox.propTypes = {
-  onChangeHandle: PropTypes.func.isRequired
+  onChangeHandle: PropTypes.func.isRequired,
+  initialChecked: PropTypes.bool
 }
 
 export default CustomCheckbox

@@ -15,9 +15,9 @@ const Products = ({ products, incAmount, decAmount, changeBonus, addProduct, del
     <div className="products__list">
       {
         products.map((item) => (
-          <div key={item.id} className="products__item">
+          <div key={item._id} className="products__item">
             <ProductsItem 
-              id={item.id}
+              _id={item._id}
               title={item.title}
               description={item.description}
               price={parseFloat(item.price)}
@@ -30,7 +30,7 @@ const Products = ({ products, incAmount, decAmount, changeBonus, addProduct, del
               changeBonus={changeBonus}
               addProduct={addProduct}
               delProduct={delProduct}
-              inBasket={!!(basket.filter(basketItem => basketItem.id === item.id)).length}
+              inBasket={!!(basket.filter(basketItem => basketItem._id === item._id)).length}
             />
           </div>
         ))
