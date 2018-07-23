@@ -1,9 +1,14 @@
 import axios from 'axios'
 
-const apiPath = 'http://5b46f9eb81846500140c4384.mockapi.io/adyax/test'
+const API_PATH = 'http://localhost:3002/api'
 
 export default {
 	products: {
-		get: () => ( axios.get(`${apiPath}/products`).then(res => res.data) )
-	}
+		get: () => (axios.get(`${API_PATH}/products`).then(response => response.data))
+	},
+  users: {
+    add: data => (axios.post(`${API_PATH}/users`, data).then(response => response.data)),
+    get: () => (axios.get(`${API_PATH}/users`).then(response => response.data)),
+    login: (credentials) => (axios.post(`${API_PATH}/users/login`, credentials).then(response => response.data))
+  }
 }

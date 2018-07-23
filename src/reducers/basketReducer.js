@@ -9,18 +9,18 @@ const basketReducer = (state = initialState, action) => {
     case ADD_PRODUCT :
       return { ...state, products: [ ...state.products, action.data ] }; break
     case DEL_PRODUCT :
-      return { ...state, products: state.products.filter( item => item.id !== action.id ) }; break
+      return { ...state, products: state.products.filter( item => item._id !== action.id ) }; break
     case INC_AMOUNT :
       return { ...state, products: state.products.map(item => ( 
-        item.id === action.id ? { ...item, amount: item.amount ? item.amount + 1 : item.min + 1 } : item 
+        item._id === action.id ? { ...item, amount: item.amount ? item.amount + 1 : item.min + 1 } : item 
       )) }; break
     case DEC_AMOUNT :
       return { ...state, products: state.products.map(item => (
-        item.id === action.id ? { ...item, amount: item.amount - 1 } : item
+        item._id === action.id ? { ...item, amount: item.amount - 1 } : item
       )) }; break
     case CHANGE_BONUS :
       return { ...state, products: state.products.map(item => (
-        item.id === action.id ? { ...item, bonus: action.bonus } : item
+        item._id === action.id ? { ...item, bonus: action.bonus } : item
       )) }; break
     default :
       return state

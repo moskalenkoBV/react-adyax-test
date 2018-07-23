@@ -1,17 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const NavigationItem = ({ id, currentStep, text, setStep }) => (
+const NavigationItem = ({ _id, currentStep, text, setStep }) => (
   <button 
-    className={`navigation-item${id == currentStep ? ' navigation-item--active' : ''}`}
-    onClick={ () => { setStep(id) } }
+    disabled={_id >= currentStep}
+    className={`navigation-item${_id == currentStep ? ' navigation-item--active' : ''}`}
+    onClick={ () => { setStep(_id) } }
   >
     {text}
   </button>
 )
 
 NavigationItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  _id: PropTypes.number.isRequired,
   currentStep: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   setStep: PropTypes.func.isRequired

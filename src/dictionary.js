@@ -24,7 +24,9 @@ const dictionary = {
       emailConfirm: 'Actual E-mail does not match',
       address: 'Address field is required',
       country: 'Country field is required',
-      nationality: 'Nationality field is required'
+      nationality: 'Nationality field is required',
+      password: 'Password field is required',
+      passwordConfirm: 'Actual Password does not match'
     },
     buttons: {
       nextStep: 'Next step' 
@@ -48,6 +50,13 @@ const dictionary = {
         }
       ]
     },
+    loginForm: {
+      loginButton: 'Login',
+      title: 'Login to your account',
+      emailPlaceholder: 'Your email',
+      passwordPlaceholder: 'Your password',
+      submitButtonText: 'Login'
+    },
     contactForm: {
       mainSection: 'New account',
       additionalSection: 'Additional address',
@@ -58,6 +67,8 @@ const dictionary = {
       address: 'Address',
       country: 'Country',
       nationality: 'Nationality',
+      password: 'Password',
+      passwordConfirm: 'Confirm password',
       countries: [
         {
           label: 'UKR', value: '1'

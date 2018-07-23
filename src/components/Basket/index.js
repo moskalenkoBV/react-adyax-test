@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import BasketItem from './BasketItem'
 import TotalPrice from '../TotalPrice'
@@ -6,36 +6,38 @@ import Button from '../Button'
 import { Translate, I18n } from 'react-redux-i18n'
 import { connect } from 'react-redux'
 import nextStep from '../../actions/nextStep'
+import SubmitButton from '../Forms/FormElements/SubmitButton'
 
-class Basket extends React.Component {
+class Basket extends Component {
+  constructor(props) {
+    super(props)
 
-  nextStep = () => {
-    switch(this.props.currentStep) {
-      case 0 :
-        this.props.nextStep()
-        window.scrollTo(0,0)
-        break
-      case 1 :
-        alert(25)
-        break
+    this.button = {
+      0: <Button text={I18n.t('buttons.nextStep')} eventHandle={this.nextStep} />,
+      1: <SubmitButton text={I18n.t('buttons.nextStep')} formName="contactForm" />
     }
   }
 
+  nextStep = () => {
+    this.props.nextStep()
+    window.scrollTo(0,0)
+  }
+
   render() {
-    const { products, nextStep } = this.props
+    const { products, nextStep, currentStep } = this.props
 
     return (
       <section className="basket">
         <h2 className="section-title"><Translate value="basket.title" /></h2>
         <div className="basket__wrapper">
           { products.length > 0 ?
-            <div>
+            <Fragment>
               <div className="basket__list">
                 {
                   products.map(item => (
-                    <div key={item.id} className="basket__item">
+                    <div key={item._id} className="basket__item">
                       <BasketItem 
-                        id={item.id}
+                        _id={item._id}
                         title={item.title}
                         bonus={item.bonus}
                         amount={item.amount}
@@ -49,9 +51,9 @@ class Basket extends React.Component {
                 <TotalPrice products={products} />
               </div>
               <div className="basket__next-step">
-                <Button text={I18n.t('buttons.nextStep')} eventHandle={this.nextStep} />
+                { this.button[currentStep] }
               </div>
-            </div>
+            </Fragment>
             :
             <div className="basket__empty-message">
               <Translate value="basket.emptyMessage" />

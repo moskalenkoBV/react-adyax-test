@@ -10,3 +10,6 @@ export const DEC_AMOUNT = 'DEC_AMOUNT'
 export const CHANGE_BONUS = 'CHANGE_BONUS'
 export const ADD_PRODUCT = 'ADD_PRODUCT'
 export const DEL_PRODUCT = 'DEL_PRODUCT'
+
+export const SIGN_IN = 'SIGN_IN'
+export const TOGGLE_LOGIN_FORM = 'TOGGLE_LOGIN_FORM'

@@ -16,7 +16,7 @@ class Navigation extends React.Component {
             <NavigationItem 
               key={index} // index won't change
               text={item}
-              id={index} // index won't change
+              _id={index} // index won't change
               currentStep={currentStep}
               setStep={setStep}
             />
