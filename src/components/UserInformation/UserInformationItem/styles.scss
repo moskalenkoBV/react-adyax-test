@@ -1,0 +1,12 @@
+.user-information-item {
+  &__label {
+    font-size: 10px;
+    line-height: 1.8;
+    text-transform: uppercase;
+  }
+
+  &__value {
+    font-size: 16px;
+    line-height: 1.125;
+  }
+}

@@ -29,7 +29,8 @@ const dictionary = {
       passwordConfirm: 'Actual Password does not match'
     },
     buttons: {
-      nextStep: 'Next step' 
+      nextStep: 'Next step',
+      order: 'Order' 
     },
     bonuses: {
       placeholder: 'Select bonus...',
@@ -60,6 +61,11 @@ const dictionary = {
     contactForm: {
       mainSection: 'New account',
       additionalSection: 'Additional address',
+      userDetails: 'Welcome User',
+      modifyButton: 'Modify Informations', 
+      modifyTitle: 'Personal information',
+      submitModify: 'Save my modifcations',
+      cancelModify: 'Cancel',
       firstName: 'First name',
       lastName: 'Last name',
       email: 'Email address',

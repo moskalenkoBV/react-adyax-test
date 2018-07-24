@@ -9,9 +9,11 @@ const Content = ({ currentStep }) => (
     <div className="content__steps">
       <Steps currentStep={currentStep} />
     </div>
-    <div className="content__basket">
-      <Basket />
-    </div>
+    { currentStep < 2 &&
+      <div className="content__basket">
+        <Basket />
+      </div>
+    }
   </div>
 )
 

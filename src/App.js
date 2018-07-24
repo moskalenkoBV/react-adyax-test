@@ -12,10 +12,15 @@ import initProducts from './actions/initProducts'
 import toggleLoginForm from './actions/toggleLoginForm'
 import setStep from './actions/setStep'
 import signIn from './actions/signIn'
+import setUserData from './actions/setUserData'
+import setContactStep from './actions/setContactStep'
+import updateBasket from './actions/updateBasket'
+import updateProducts from './actions/updateProducts'
 import Header from './components/Header'
 import Navigation from './components/Navigation'
 import Content from './components/Content'
 import Message from './components/Message'
+import InitLoader from './components/InitLoader'
 import Loader from './components/Loader'
 import LoginForm from './components/Forms/LoginForm'
 import CloseButton from './components/CloseButton'
@@ -23,7 +28,7 @@ import CloseButton from './components/CloseButton'
 class App extends Component {
 
   state = {
-    loading: true,
+    initLoading: true,
     error: false
   }
 
@@ -35,30 +40,48 @@ class App extends Component {
       await this.props.initSteps(Object.values(I18n.t('steps')))
       
       const productsData = await api.products.get()
+      console.log(productsData)
       this.props.initProducts(productsData)
 
-      if(localStorage.getItem('token')) {
-        this.props.signIn(localStorage.getItem('token'))
-      }
-
       if(localStorage.getItem('currentStep')) {
-        this.props.setStep(+localStorage.getItem('currentStep'))
+        const currentStepLocal = parseInt(localStorage.getItem('currentStep'))
+        this.props.setStep(currentStepLocal > 2 || currentStepLocal < 0 || isNaN(currentStepLocal) ? 0 : currentStepLocal)
       }
 
-      this.setState({loading: false})
+      if(localStorage.getItem('basket')) {
+        const basketLocal = JSON.parse(localStorage.getItem('basket'))
+        await this.props.updateBasket(basketLocal)
+        this.props.updateProducts(basketLocal)
+      }
+
+      if(localStorage.getItem('token')) {
+        const tokenLocal = localStorage.getItem('token')
+        const userData = await api.users.getUserData({token: tokenLocal})
+        this.props.signIn(tokenLocal)
+        this.props.setUserData(userData);
+        this.props.setContactStep(1)
+      }
+
+      this.setState({initLoading: false})
     } catch(e) {
-      console.log('error')
-      this.setState({loading: false, error: I18n.t('errors.503')})
+      if(e.response.data.token) {
+        localStorage.removeItem('token')
+        this.props.setStep(0)
+        this.setState({initLoading: false})
+      }
+      else {
+        this.setState({initLoading: false, error: I18n.t('errors.503')})
+      }
     }
   }
 
   render() {
-    const { loading, error } = this.state
-    const { isLoginForm, toggleLoginForm } = this.props
+    const { initLoading, error } = this.state
+    const { isLoginForm, toggleLoginForm, isLoading } = this.props
 
     return (
       <div className="app">
-        { !loading ?
+        { !initLoading ?
           <Fragment>
             <div className="app__header">
               <Header />
@@ -89,8 +112,9 @@ class App extends Component {
             }
           </Fragment>
           :
-          <Loader />
+          <InitLoader />
         }
+        { isLoading && <Loader /> }
       </div>
     )
   }
@@ -101,12 +125,26 @@ App.propTypes = {
   initProducts: PropTypes.func.isRequired,
   isLoginForm: PropTypes.bool,
   signIn: PropTypes.func,
-  setStep: PropTypes.func
+  setStep: PropTypes.func,
+  isLoading: PropTypes.bool,
+  setUserData: PropTypes.func,
+  setContactStep: PropTypes.func,
+  updateBasket: PropTypes.func,
+  updateProducts: PropTypes.func
 }
 
 export default connect(
   (state) => ({
-    isLoginForm: state.userReducer.loginForm
+    isLoginForm: state.userReducer.loginForm,
+    isLoading: state.loaderReducer.loading
   }),
-  { initSteps, initProducts, toggleLoginForm, signIn, setStep }
+  { initSteps, 
+    initProducts, 
+    toggleLoginForm, 
+    signIn, 
+    setStep, 
+    setUserData, 
+    setContactStep, 
+    updateBasket, 
+    updateProducts }
 )(App)

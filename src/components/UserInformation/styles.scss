@@ -1,0 +1,21 @@
+.user-information {
+  &__list-item {
+    margin-top: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  &__section {
+    &--additional {
+      margin-top: 20px;
+    }
+  }
+
+  &__modify {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+}

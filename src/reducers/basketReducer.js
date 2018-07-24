@@ -1,4 +1,12 @@
-import { ADD_PRODUCT, DEL_PRODUCT, INC_AMOUNT, DEC_AMOUNT, CHANGE_BONUS } from '../types'
+import { 
+  ADD_PRODUCT, 
+  DEL_PRODUCT, 
+  INC_AMOUNT, 
+  DEC_AMOUNT, 
+  CHANGE_BONUS,
+  CLEAR_BASKET,
+  UPDATE_BASKET
+} from '../types'
 
 const initialState = {
   products: []
@@ -22,6 +30,10 @@ const basketReducer = (state = initialState, action) => {
       return { ...state, products: state.products.map(item => (
         item._id === action.id ? { ...item, bonus: action.bonus } : item
       )) }; break
+    case CLEAR_BASKET :
+      return { ...state, products: [] }; break
+    case UPDATE_BASKET :
+      return { ...state, products: action.data }; break
     default :
       return state
   }
