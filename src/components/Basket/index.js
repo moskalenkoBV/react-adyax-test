@@ -7,6 +7,7 @@ import { Translate, I18n } from 'react-redux-i18n'
 import { connect } from 'react-redux'
 import nextStep from '../../actions/nextStep'
 import SubmitButton from '../Forms/FormElements/SubmitButton'
+import api from '../../api'
 
 class Basket extends Component {
   constructor(props) {
@@ -14,7 +15,13 @@ class Basket extends Component {
 
     this.button = {
       0: <Button text={I18n.t('buttons.nextStep')} eventHandle={this.nextStep} />,
-      1: <SubmitButton text={I18n.t('buttons.nextStep')} formName="contactForm" />
+      2: <Button text={I18n.t('buttons.order')} eventHandle={this.makeOrder} />
+    }
+
+    this.contactButton = {
+      0: <SubmitButton text={I18n.t('buttons.nextStep')} formName="contactForm" />,
+      1: <Button text={I18n.t('buttons.nextStep')} eventHandle={this.nextStep} />,
+      2: <Button disabled={true} text={I18n.t('buttons.nextStep')} />
     }
   }
 
@@ -23,12 +30,18 @@ class Basket extends Component {
     window.scrollTo(0,0)
   }
 
+  makeOrder = () => {
+    api.orders.make(this.props.userEmail, this.props.products).then(res => {
+      console.log(res.result, res.message)
+    })
+  }
+
   render() {
-    const { products, nextStep, currentStep } = this.props
+    const { products, nextStep, currentStep, contactCurrentStep } = this.props
 
     return (
       <section className="basket">
-        <h2 className="section-title"><Translate value="basket.title" /></h2>
+        <h2 className="section-title"><Translate value={currentStep === 2 ? "steps.2" : "basket.title"} /></h2>
         <div className="basket__wrapper">
           { products.length > 0 ?
             <Fragment>
@@ -51,7 +64,11 @@ class Basket extends Component {
                 <TotalPrice products={products} />
               </div>
               <div className="basket__next-step">
-                { this.button[currentStep] }
+                { currentStep === 1 ?
+                  this.contactButton[contactCurrentStep]
+                  :
+                  this.button[currentStep]
+                }
               </div>
             </Fragment>
             :
@@ -68,13 +85,17 @@ class Basket extends Component {
 Basket.propTypes = {
   products: PropTypes.array,
   nextStep: PropTypes.func.isRequired,
-  currentStep: PropTypes.number.isRequired
+  currentStep: PropTypes.number.isRequired,
+  contactCurrentStep: PropTypes.number,
+  userEmail: PropTypes.string
 }
 
 export default connect(
   (state) => ({
     products: state.basketReducer.products,
-    currentStep: state.stepsReducer.currentStep
+    currentStep: state.stepsReducer.currentStep,
+    contactCurrentStep: state.stepsReducer.contactCurrentStep,
+    userEmail: state.userReducer.userData.email
   }),
   { nextStep }
 )(Basket)

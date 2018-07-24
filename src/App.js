@@ -37,17 +37,16 @@ class App extends Component {
       const productsData = await api.products.get()
       this.props.initProducts(productsData)
 
-      if(localStorage.getItem('token')) {
-        this.props.signIn(localStorage.getItem('token'))
-      }
+      // if(localStorage.getItem('token')) {
+      //   this.props.signIn(localStorage.getItem('token'))
+      // }
 
-      if(localStorage.getItem('currentStep')) {
-        this.props.setStep(+localStorage.getItem('currentStep'))
-      }
+      // if(localStorage.getItem('currentStep')) {
+      //   this.props.setStep(+localStorage.getItem('currentStep'))
+      // }
 
       this.setState({loading: false})
     } catch(e) {
-      console.log('error')
       this.setState({loading: false, error: I18n.t('errors.503')})
     }
   }

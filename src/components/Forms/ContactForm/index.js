@@ -10,8 +10,12 @@ import RenderedSelect from '../FormElements/RenderedSelect'
 import { connect } from 'react-redux'
 import * as yup from 'yup'
 import CustomCheckbox from '../FormElements/CustomCheckbox'
+import SubmitButton from '../FormElements/SubmitButton'
 import signIn from '../../../actions/signIn'
+import decContactStep from '../../../actions/decContactStep'
 import toggleLoginForm from '../../../actions/toggleLoginForm'
+import setUserData from '../../../actions/setUserData'
+import setContactStep from '../../../actions/setContactStep'
 
 class ContactForm extends Component {
   constructor(props) {
@@ -35,26 +39,49 @@ class ContactForm extends Component {
     }
   }
 
+  componentDidMount() {
+    if(this.props.initialValues.addressAdditional) {
+      this.setState({isActiveExtraSection: true})
+    }
+  }
+
   submit = values => {
     const errors = {}
     const validObject = this.state.isActiveExtraSection ? {...this.validationMain, ...this.validationSecondary} : {...this.validationMain}
     return yup.object(validObject)
       .validate(values, {abortEarly: false}).then(() => {
-        return api.users.add({
+        console.log(this.state.isActiveExtraSection)
+        const userData = {
           firstName: values.firstName,
           lastName: values.lastName,
           email: values.email,
           address: values.address,
-          country: values.country.value,
-          nationality: values.nationality.value,
+          country: values.country,
+          nationality: values.nationality,
           password: values.password,
-          additionalAddress: values.additionalAddressd,
-          additionalCountry: values.additionalCountry
-        })
-        .catch(err => {
-          throw { inner: [{path: '_error', message: err.response.data.error.email}] }
-        })
-
+          addressAdditional: this.state.isActiveExtraSection ? values.addressAdditional : '',
+          countryAdditional: this.state.isActiveExtraSection ? values.countryAdditional : ''
+        }
+        if(this.props.contactCurrentStep == 2) {
+          console.log(userData)
+          return api.users.update(this.props.token, userData).then(res => {
+            this.props.setUserData(res.userData)
+            this.props.setContactStep(1)
+          })
+        }
+        else {
+          return api.users.add(userData).then((res) => {
+            (async () => {
+              await this.props.signIn(res.user.token)
+              const userdata = await api.users.getUserData({ token: res.user.token})
+              await this.props.setUserData(userdata)
+              this.props.setContactStep(1)
+            })()
+          })
+          .catch(err => {
+            throw { inner: [{path: '_error', message: err.response.data.error.email}] }
+          })
+        }
       }).catch(err => {
         err.inner.map(item => {
           errors[item.path] = item.message
@@ -72,12 +99,22 @@ class ContactForm extends Component {
   }
 
   render() {
-    const { handleSubmit, toggleLoginForm, error, isLogged } = this.props
+    const { 
+      handleSubmit, 
+      toggleLoginForm, 
+      error, isLogged, 
+      setUserData, 
+      initialValues, 
+      contactCurrentStep,
+      decContactStep,
+      setContactStep
+    } = this.props
+
     return (
       <form id="contactForm" noValidate className="contact-form form" onSubmit={handleSubmit(this.submit)}>
         <div className="contact-form__main">
           <div className="contact-form__title-wrapper">
-            <h3><Translate value="contactForm.mainSection" /></h3>
+            <h3><Translate value={contactCurrentStep === 2 ? "contactForm.modifyTitle" : "contactForm.mainSection"} /></h3>
             { !isLogged && <Button eventHandle={toggleLoginForm} text={I18n.t('loginForm.loginButton')} /> }
           </div>
           <div className="form__row">
@@ -146,7 +183,7 @@ class ContactForm extends Component {
         <div className="contact-form__additional">
           <div className="contact-form__title-wrapper">
             <h3><Translate value="contactForm.additionalSection" /></h3>
-            <CustomCheckbox onChangeHandle={this.changeContactFormAdditional} />
+            <CustomCheckbox initialChecked={!!initialValues.addressAdditional} onChangeHandle={this.changeContactFormAdditional} />
           </div>
           { this.state.isActiveExtraSection &&
             <Fragment>
@@ -169,6 +206,12 @@ class ContactForm extends Component {
             </Fragment>
           }
         </div>
+        { contactCurrentStep === 2 && 
+          <div className="contact-form__modify">
+            <SubmitButton text={I18n.t('contactForm.submitModify')} form="contactForm" />
+            <Button text={I18n.t('contactForm.cancelModify')} eventHandle={decContactStep} />
+          </div>
+        }
         { error && <span className="form__error-message">{error}</span> }
       </form>
     )
@@ -178,7 +221,12 @@ class ContactForm extends Component {
 ContactForm.propTypes = {
   signIn: PropTypes.func,
   toggleLoginForm: PropTypes.func,
-  error: PropTypes.string
+  error: PropTypes.string,
+  contactCurrentStep: PropTypes.number,
+  decContactStep: PropTypes.func,
+  setUserData: PropTypes.func,
+  setContactStep: PropTypes.func,
+  token: PropTypes.string
 }
 
 ContactForm = reduxForm({
@@ -187,7 +235,10 @@ ContactForm = reduxForm({
 
 export default connect(
   (state) => ({
-    isLogged: !!state.userReducer.token
+    isLogged: !!state.userReducer.token,
+    token: state.userReducer.token,
+    initialValues: state.userReducer.userData,
+    contactCurrentStep: state.stepsReducer.contactCurrentStep
   }),
-  { signIn, toggleLoginForm }
+  { signIn, toggleLoginForm, decContactStep, setUserData, setContactStep }
 )(ContactForm)

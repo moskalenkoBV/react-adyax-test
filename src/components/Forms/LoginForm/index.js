@@ -9,6 +9,8 @@ import api from '../../../api'
 import { connect } from 'react-redux'
 import signIn from '../../../actions/signIn'
 import toggleLoginForm from '../../../actions/toggleLoginForm'
+import setUserData from '../../../actions/setUserData'
+import setContactStep from '../../../actions/setContactStep'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -26,6 +28,9 @@ class LoginForm extends React.Component {
           (async () => {
             await this.props.signIn(res.user.token)
             await this.props.toggleLoginForm()
+            const userdata = await api.users.getUserData({ token: res.user.token})
+            await this.props.setUserData(userdata)
+            this.props.setContactStep(1)
           })()
         })
         .catch(err => {
@@ -70,7 +75,9 @@ class LoginForm extends React.Component {
 LoginForm.propTypes = {
   handleSubmit: PropTypes.func,
   error: PropTypes.string,
-  signIn: PropTypes.func
+  signIn: PropTypes.func,
+  setUserData: PropTypes.func,
+  setContactStep: PropTypes.func
 }
 
 LoginForm = reduxForm({
@@ -79,5 +86,5 @@ LoginForm = reduxForm({
 
 export default connect(
   null,
-  { signIn, toggleLoginForm }
+  { signIn, toggleLoginForm, setUserData, setContactStep }
 )(LoginForm)

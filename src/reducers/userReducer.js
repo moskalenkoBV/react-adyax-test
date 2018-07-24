@@ -1,8 +1,9 @@
-import { SIGN_IN, TOGGLE_LOGIN_FORM } from '../types'
+import { SIGN_IN, TOGGLE_LOGIN_FORM, SET_USER_DATA } from '../types'
 
 const initialState = {
   token: '',
-  loginForm: false
+  loginForm: false,
+  userData: {}
 }
 
 const userReducer = (state = initialState, action ) => {
@@ -11,6 +12,8 @@ const userReducer = (state = initialState, action ) => {
       return { ...state, token: action.token }; break
     case TOGGLE_LOGIN_FORM :
       return { ...state, loginForm: !state.loginForm }; break
+    case SET_USER_DATA :
+      return { ...state, userData: action.data }; break
     default :
       return state
   }
