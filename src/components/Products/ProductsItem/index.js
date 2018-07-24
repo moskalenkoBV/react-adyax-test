@@ -7,6 +7,10 @@ import CustomCheckbox from '../../Forms/FormElements/CustomCheckbox'
 import ProductPrice from '../../ProductPrice'
 
 class ProductsItem extends React.Component {
+  componentDidMount() {
+    this.setState({selectedBonus: this.props.bonus ? this.props.bonus : ''})
+  }
+
   state = {
     selectedBonus: ''
   }

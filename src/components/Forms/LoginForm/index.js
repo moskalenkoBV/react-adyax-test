@@ -11,6 +11,7 @@ import signIn from '../../../actions/signIn'
 import toggleLoginForm from '../../../actions/toggleLoginForm'
 import setUserData from '../../../actions/setUserData'
 import setContactStep from '../../../actions/setContactStep'
+import toggleLoader from '../../../actions/toggleLoader'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -23,13 +24,15 @@ class LoginForm extends React.Component {
   submit = values => {
     const errors = {}
     return yup.object({...this.validation})
-      .validate(values, {abortEarly: false}).then(() => {
+      .validate(values, {abortEarly: false}).then(async () => {
+        this.props.toggleLoader()
         return api.users.login(values).then(res => {
           (async () => {
             await this.props.signIn(res.user.token)
-            await this.props.toggleLoginForm()
             const userdata = await api.users.getUserData({ token: res.user.token})
-            await this.props.setUserData(userdata)
+            this.props.toggleLoader()
+            this.props.toggleLoginForm()
+            this.props.setUserData(userdata)
             this.props.setContactStep(1)
           })()
         })
@@ -41,6 +44,7 @@ class LoginForm extends React.Component {
         err.inner.map(item => {
           errors[item.path] = item.message
         })
+        this.props.toggleLoader()
         throw new SubmissionError(errors)
       })
   }
@@ -77,7 +81,8 @@ LoginForm.propTypes = {
   error: PropTypes.string,
   signIn: PropTypes.func,
   setUserData: PropTypes.func,
-  setContactStep: PropTypes.func
+  setContactStep: PropTypes.func,
+  toggleLoader: PropTypes.func
 }
 
 LoginForm = reduxForm({
@@ -86,5 +91,5 @@ LoginForm = reduxForm({
 
 export default connect(
   null,
-  { signIn, toggleLoginForm, setUserData, setContactStep }
+  { signIn, toggleLoginForm, setUserData, setContactStep, toggleLoader }
 )(LoginForm)

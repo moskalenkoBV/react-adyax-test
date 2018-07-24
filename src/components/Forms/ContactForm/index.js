@@ -16,6 +16,7 @@ import decContactStep from '../../../actions/decContactStep'
 import toggleLoginForm from '../../../actions/toggleLoginForm'
 import setUserData from '../../../actions/setUserData'
 import setContactStep from '../../../actions/setContactStep'
+import toggleLoader from '../../../actions/toggleLoader'
 
 class ContactForm extends Component {
   constructor(props) {
@@ -49,8 +50,8 @@ class ContactForm extends Component {
     const errors = {}
     const validObject = this.state.isActiveExtraSection ? {...this.validationMain, ...this.validationSecondary} : {...this.validationMain}
     return yup.object(validObject)
-      .validate(values, {abortEarly: false}).then(() => {
-        console.log(this.state.isActiveExtraSection)
+      .validate(values, {abortEarly: false}).then(async () => {
+        this.props.toggleLoader()
         const userData = {
           firstName: values.firstName,
           lastName: values.lastName,
@@ -63,10 +64,10 @@ class ContactForm extends Component {
           countryAdditional: this.state.isActiveExtraSection ? values.countryAdditional : ''
         }
         if(this.props.contactCurrentStep == 2) {
-          console.log(userData)
           return api.users.update(this.props.token, userData).then(res => {
             this.props.setUserData(res.userData)
             this.props.setContactStep(1)
+            this.props.toggleLoader()
           })
         }
         else {
@@ -74,11 +75,13 @@ class ContactForm extends Component {
             (async () => {
               await this.props.signIn(res.user.token)
               const userdata = await api.users.getUserData({ token: res.user.token})
-              await this.props.setUserData(userdata)
+              this.props.setUserData(userdata)
               this.props.setContactStep(1)
+              this.props.toggleLoader()
             })()
           })
           .catch(err => {
+            this.props.toggleLoader()
             throw { inner: [{path: '_error', message: err.response.data.error.email}] }
           })
         }
@@ -226,7 +229,8 @@ ContactForm.propTypes = {
   decContactStep: PropTypes.func,
   setUserData: PropTypes.func,
   setContactStep: PropTypes.func,
-  token: PropTypes.string
+  token: PropTypes.string,
+  toggleLoader: PropTypes.func
 }
 
 ContactForm = reduxForm({
@@ -240,5 +244,5 @@ export default connect(
     initialValues: state.userReducer.userData,
     contactCurrentStep: state.stepsReducer.contactCurrentStep
   }),
-  { signIn, toggleLoginForm, decContactStep, setUserData, setContactStep }
+  { signIn, toggleLoginForm, decContactStep, setUserData, setContactStep, toggleLoader }
 )(ContactForm)

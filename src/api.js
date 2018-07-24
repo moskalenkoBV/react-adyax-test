@@ -14,6 +14,6 @@ export default {
     update: (token, userData) => axios.post(`${API_PATH}/users/update`, {token, userData}).then(response => response.data)
   },
   orders: {
-    make: (email, products) => axios.post(`${API_PATH}/orders`, { email, products }).then(response => response.data)
+    make: (email, products, firstName, lastName) => axios.post(`${API_PATH}/orders`, { email, products, firstName, lastName }).then(response => response.data)
   }
 }
