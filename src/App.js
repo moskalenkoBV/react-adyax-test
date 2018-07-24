@@ -40,7 +40,6 @@ class App extends Component {
       await this.props.initSteps(Object.values(I18n.t('steps')))
       
       const productsData = await api.products.get()
-      console.log(productsData)
       this.props.initProducts(productsData)
 
       if(localStorage.getItem('currentStep')) {
