@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import 'babel-polifill'
+import 'babel-polyfill'
 import './main.scss'
 import api from './api'
 import { I18n, loadTranslations, setLocale, syncTranslationWithStore } from 'react-redux-i18n'

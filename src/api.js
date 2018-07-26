@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_PATH = 'https://secure-shelf-22573.herokuapp.com/api'
+const API_PATH = 'http://localhost:4000/api'
 
 export default {
 	products: {
