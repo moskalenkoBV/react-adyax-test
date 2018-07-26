@@ -22,7 +22,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "prodbuild": "npm run build && babel-node server.js",
+    "prodbuild": "npm run build && node server.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
