@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
+    "express": "^4.16.3",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -21,6 +22,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
+    "prodbuild": "npm run build && babel-node server.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
