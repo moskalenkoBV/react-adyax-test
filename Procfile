@@ -1,1 +1,1 @@
-web: npm prodbuild
+web: npm run prodbuild
