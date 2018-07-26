@@ -25,7 +25,7 @@ const ExtractTextWebpackPluginObject = new ExtractTextWebpackPlugin({
 module.exports = {
   entry: { main: './src/index.js' },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
   module: {
