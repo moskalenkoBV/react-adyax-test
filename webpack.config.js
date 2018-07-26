@@ -28,6 +28,11 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js'
   },
+  devServer: {
+    contentBase: path.join(__dirname, 'src'),
+    compress: true,
+    port: process.env.PORT || 3000
+  },
   module: {
     rules: [
       {
