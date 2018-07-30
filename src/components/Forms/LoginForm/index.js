@@ -23,9 +23,9 @@ class LoginForm extends React.Component {
   }
   submit = values => {
     const errors = {}
+    this.props.toggleLoader()
     return yup.object({...this.validation})
       .validate(values, {abortEarly: false}).then(async () => {
-        this.props.toggleLoader()
         return api.users.login(values).then(res => {
           (async () => {
             await this.props.signIn(res.user.token)
