@@ -23,6 +23,8 @@ import InitLoader from './components/InitLoader'
 import Loader from './components/Loader'
 import LoginForm from './components/Forms/LoginForm'
 import CloseButton from './components/CloseButton'
+import { Mobile } from './responsive'
+import BasketCollapsed from './components/BasketCollapsed';
 
 class App extends Component {
 
@@ -108,6 +110,9 @@ class App extends Component {
                 }
               </Fragment>
             }
+          <Mobile>
+            <BasketCollapsed />
+          </Mobile>
           </Fragment>
           :
           <InitLoader />

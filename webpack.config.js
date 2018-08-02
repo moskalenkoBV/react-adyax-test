@@ -78,6 +78,20 @@ module.exports = {
             name: 'static/images/[name].[hash:8].[ext]'
           }
         }
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'react-svg-loader',
+            options: {
+              jsx: true
+            }
+          }
+        ]
       }
     ]
   },

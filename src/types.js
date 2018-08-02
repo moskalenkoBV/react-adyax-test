@@ -22,4 +22,6 @@ export const SIGN_IN = 'SIGN_IN'
 export const TOGGLE_LOGIN_FORM = 'TOGGLE_LOGIN_FORM'
 export const SET_USER_DATA = 'SET_USER_DATA'
 
+export const TOGGLE_BASKET = 'TOGGLE_BASKET'
+
 //export const TOGGLE_LOADER = 'TOGGLE_LOADER'

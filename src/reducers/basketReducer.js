@@ -5,11 +5,13 @@ import {
   DEC_AMOUNT, 
   CHANGE_BONUS,
   CLEAR_BASKET,
-  UPDATE_BASKET
+  UPDATE_BASKET,
+  TOGGLE_BASKET
 } from '../types'
 
 const initialState = {
-  products: []
+  products: [],
+  isOpened: false
 }
 
 const basketReducer = (state = initialState, action) => {
@@ -34,6 +36,8 @@ const basketReducer = (state = initialState, action) => {
       return { ...state, products: [] }; break
     case UPDATE_BASKET :
       return { ...state, products: action.data }; break
+    case TOGGLE_BASKET :
+      return { ...state, isOpened: !state.isOpened }; break
     default :
       return state
   }
