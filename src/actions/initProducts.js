@@ -1,9 +1,13 @@
-import { INIT_PRODUCTS } from '../types'
+import { INIT_PRODUCTS } from '../reducers/productsReducer'
 
-const initProducts = data => dispatch => {
+const initProducts = data => (dispatch, getState) => {
+  const state = getState().productsReducer
   dispatch({
     type: INIT_PRODUCTS,
-    data
+    state: {
+      ...state,
+      products: data
+    }
   })
 }
 

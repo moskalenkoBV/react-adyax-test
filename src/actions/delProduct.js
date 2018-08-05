@@ -1,6 +1,8 @@
-import { DEL_PRODUCT } from '../types'
+import { DEL_PRODUCT } from '../reducers/basketReducer'
 
-const delProduct = id => dispatch => {
+const delProduct = id => (dispatch, getState) => {
+  const state = getState().basketReducer
+  
   if(localStorage.getItem('basket')) {
     let basketArray = JSON.parse(localStorage.getItem('basket'))
     basketArray = basketArray.filter(item => (item._id !== id))
@@ -9,7 +11,10 @@ const delProduct = id => dispatch => {
   
   dispatch({
     type: DEL_PRODUCT,
-    id
+    state: {
+      ...state,
+      products: state.products.filter(item => item._id !== id)
+    }
   })
 }
 
